@@ -2,14 +2,34 @@
     class User {
         private $id,
                 $name,
+                $gender,
                 $email,
                 $password,
                 $address,
                 $phone,
-                $image;
+                $image,
+                $province,
+                $city,
+                $postal_code;
 
         public function getId() {
             return $this->id;
+        }
+
+        public function getGender() {
+            return $this->gender;
+        }
+
+        public function getProvince() {
+            return $this->province;
+        }
+
+        public function getCity() {
+            return $this->city;
+        }
+
+        public function getPostalCode() {
+            return $this->postal_code;
         }
 
         public function getName() {
@@ -45,6 +65,34 @@
                 throw new Exception("Nama harus String!", 1); 
             }
             $this->name = $name;
+        }
+
+        public function setGender($gender) {
+            if (!is_string($gender)) {
+                throw new Exception("Kelamin harus String!", 1); 
+            }
+            $this->gender = $gender;
+        }
+
+        public function setProvince($province) {
+            if (!is_string($province)) {
+                throw new Exception("Provinsi harus String!", 1); 
+            }
+            $this->province = $province;
+        }
+
+        public function setCity($city) {
+            if (!is_string($city)) {
+                throw new Exception("Kota harus String!", 1); 
+            }
+            $this->city = $city;
+        }
+
+        public function setPostalCode($postalCode) {
+            if (!is_string($postalCode)) {
+                throw new Exception("Kode pos harus String!", 1); 
+            }
+            $this->postal_code = $postalCode;
         }
 
         public function setEmail($email) {

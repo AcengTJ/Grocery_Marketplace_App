@@ -3,9 +3,9 @@ require "../controller/registerController.php";
 
 if (isset($_POST["submit"])) {
     if (register($_POST) > 0) {
-        echo "<script>alert('Pendaftaran akun berhasil.')</script>";
+      echo "<script>alert('Pendaftaran akun berhasil.')</script>";
     } else {
-        echo mysqli_error($conn);
+      echo mysqli_error($conn);
     }
 }
 ?>
