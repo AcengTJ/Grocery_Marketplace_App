@@ -134,7 +134,7 @@ if (isset($_POST["search"])) {
             <div class="modal-body">
               <div class="col-6 text-center mb-2">
                 <div class="border boder-1 text-center mb-1">
-                  <img src="../public/img/user/unknown_image/man.jpg" class="img-fluid rounded img-preview">
+                  <img src="../public/img/user/<?= $_SESSION["row"]["image"] ?>" class="img-fluid rounded img-preview">
                 </div>
 
                 <input id="image" type="file" name="image" class="d-none" onchange="previewImage()">
@@ -145,6 +145,17 @@ if (isset($_POST["search"])) {
               <div class="input-group mb-3">
                 <input type="text" name="name" class="form-control" maxlength="50" autocomplete="off" value="<?= ucwords($_SESSION["row"]["name"]) ?>">
               </div>
+
+              <label for="basic-url" class="form-label text-muted fw-semibold">Kelamin</label>
+              <select class="form-select mb-3" aria-label="Default select example">
+                <?php if ($_SESSION["row"]["gender"] == "laki-laki") :?> 
+                  <option selected value="laki-laki">Laki-laki</option>
+                  <option value="perempuan">Perempuan</option>
+                <?php else:?>
+                  <option value="laki-laki">Laki-laki</option>
+                  <option selected value="perempuan">Perempuan</option>
+                <?php endif; ?>
+              </select>
   
               <label for="basic-url" class="form-label text-muted fw-semibold">Alamat</label>
               <div class="input-group mb-3">
@@ -153,17 +164,17 @@ if (isset($_POST["search"])) {
   
               <label for="basic-url" class="form-label text-muted fw-semibold">Provinsi</label>
               <div class="input-group mb-3">
-                <input type="text" name="province" class="form-control" autocomplete="off">
+                <input type="text" name="province" class="form-control" autocomplete="off" value="<?= ucwords($_SESSION["row"]["province"]) ?>">
               </div>
   
               <label for="basic-url" class="form-label text-muted fw-semibold">Kota</label>
               <div class="input-group mb-3">
-                <input type="text" name="city" class="form-control" autocomplete="off">
+                <input type="text" name="city" class="form-control" autocomplete="off" value="<?= ucwords($_SESSION["row"]["city"]) ?>">
               </div>
   
               <label for="basic-url" class="form-label text-muted fw-semibold">Kode Pos</label>
               <div class="input-group mb-3">
-                <input type="text" name="postal_code" class="form-control" maxlength="5" size="5" autocomplete="off" onkeypress="return numberOnly(event); ">
+                <input type="text" name="postal_code" class="form-control" maxlength="5" size="5" autocomplete="off" onkeypress="return numberOnly(event);" value="<?= $_SESSION["row"]["postal_code"] ?>">
               </div>
   
               <label for="basic-url" class="form-label text-muted fw-semibold">Telepon</label>
