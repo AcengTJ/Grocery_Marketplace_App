@@ -1,18 +1,27 @@
 <?php 
 require "dbConnection.php";
+require "../class/User.php";
 
 function register($data) {
     global $conn;
 
-    $name = strtolower(stripslashes($data["name"]));
-    $email = $data["email"];
-    $password = mysqli_real_escape_string($conn, $data["password"]);
+    $user = new User;
+    $user->setName(strtolower(stripslashes($data["name"])));
+    $user->setEmail($data["email"]);
+    $user->setPassword(mysqli_real_escape_string($conn, $data["password"]));
     $password2 = mysqli_real_escape_string($conn, $data["password2"]);
-    $address = strtolower($data["address"]);
-    $phone = $data["phone"];
+    $user->setAddress(strtolower($data["address"]));
+    $user->setPhone($data["phone"]);
+    $user->setImage(upload());
+
+    $email = $user->getEmail();
+    $name = $user->getName();
+    $password = $user->getPassword();
+    $address = $user->getAddress();
+    $phone = $user->getPhone();
     
     // upload gambar
-    $image = upload();
+    $image = $user->getImage();
     if (!$image) {
         return false;
     }

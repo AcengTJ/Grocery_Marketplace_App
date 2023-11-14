@@ -23,12 +23,15 @@ if (isset($_POST["search"])) {
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!-- css -->
     <link rel="stylesheet" href="../public/css/style.css">
     <!-- icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Js -->
     <script src="../public/js/chart.js"></script>
+    <script src="../public/js/script.js"></script>
     <!-- chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -92,7 +95,7 @@ if (isset($_POST["search"])) {
         <div class="col-3 ">
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="" class="fw-semibold link-none text-decoration-none text-dark">Ubah Profil</a>
+                    <button type="button" class="fw-semibold border-0 bg-white text-dark" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah Profil</button>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="" class="fw-semibold link-none text-decoration-none text-dark">Riwayat Transaksi</a>
@@ -103,14 +106,79 @@ if (isset($_POST["search"])) {
             </ul>
         </div>
         <!-- Chart Container -->
-        <div class="col">
-            <div class="card-body" style="height: 50vh">
-              <p class="fw-bold fs-5">Grafik Transaksi Tahun <span class="text-danger"><?= date('Y'); ?></span></p>
+        <div class="col-9 scrollspy-example-2  mx-auto" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+          <p class="fw-bold fs-5">Grafik Transaksi Tahun <span id="year" name="year" style="color: rgb(255, 99, 132);"><?= date('Y'); ?></span></p>
+            <div class="col card-body" style="height: 50vh">
               <canvas id="myChart"></canvas>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-start flex-column p-2 pb-4 p-md-4">
+                <div>
+                  <p class="mb-2 fw-bold">Tahun Transaksi</p>
+                </div>
+                <select class="text-center px-5 py-2 border-0 shadow rounded overflow-auto" name="yearpicker" id="yearpicker" onchange="handleFilter(myChart)">
+                </select>
             </div>
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" id="editUserModal" aria-labelledby="editUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form action="" method="post" enctype="multipart/form-data">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ubah Data Diri</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="col-6 text-center mb-2">
+                <div class="border boder-1 text-center mb-1">
+                  <img src="../public/img/user/unknown_image/man.jpg" class="img-fluid rounded img-preview">
+                </div>
+
+                <input id="image" type="file" name="image" class="d-none" onchange="previewImage()">
+                <label for="image" class="col-12 btn bg-primary text-white p-1 text-center rounded">Pilih foto</label>
+              </div>
+
+              <label for="basic-url" class="form-label text-muted fw-semibold">Nama</label>
+              <div class="input-group mb-3">
+                <input type="text" name="name" class="form-control" maxlength="50" autocomplete="off" value="<?= ucwords($_SESSION["row"]["name"]) ?>">
+              </div>
+  
+              <label for="basic-url" class="form-label text-muted fw-semibold">Alamat</label>
+              <div class="input-group mb-3">
+                <input type="text" name="address" class="form-control" maxlength="50" autocomplete="off" value="<?= ucwords($_SESSION["row"]["address"]) ?>">
+              </div>
+  
+              <label for="basic-url" class="form-label text-muted fw-semibold">Provinsi</label>
+              <div class="input-group mb-3">
+                <input type="text" name="province" class="form-control" autocomplete="off">
+              </div>
+  
+              <label for="basic-url" class="form-label text-muted fw-semibold">Kota</label>
+              <div class="input-group mb-3">
+                <input type="text" name="city" class="form-control" autocomplete="off">
+              </div>
+  
+              <label for="basic-url" class="form-label text-muted fw-semibold">Kode Pos</label>
+              <div class="input-group mb-3">
+                <input type="text" name="postal_code" class="form-control" maxlength="5" size="5" autocomplete="off" onkeypress="return numberOnly(event); ">
+              </div>
+  
+              <label for="basic-url" class="form-label text-muted fw-semibold">Telepon</label>
+              <div class="input-group mb-3">
+                <input type="text" name="phone" class="form-control" maxlength="14" autocomplete="off" value="<?= ucwords($_SESSION["row"]["phone"]) ?>">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <button type="button" class="btn btn-info text-white" name="saveChanges">Simpan</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
