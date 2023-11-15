@@ -39,17 +39,16 @@ if (isset($_POST["saveChanges"])) {
       crossorigin="anonymous"
     />
     <!-- Ajax -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- css -->
     <link rel="stylesheet" href="../public/css/style.css">
     <!-- icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Js -->
-    <script src="../public/js/chart.js"></script>
     <script src="../public/js/script.js"></script>
+    <script src="../public/js/chart.js"></script>
     <!-- chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   </head>
   <body class="p-0 m-0">
     <nav class="navbar bg-info bg-info bg-gradient navbar-expand-lg">
@@ -131,7 +130,7 @@ if (isset($_POST["saveChanges"])) {
                 <div>
                   <p class="mb-2 fw-bold">Tahun Transaksi</p>
                 </div>
-                <select class="text-center px-5 py-2 border-0 shadow rounded overflow-auto" name="yearpicker" id="yearpicker" onchange="handleFilter(myChart)">
+                <select class="text-center px-5 py-2 border-0 shadow rounded overflow-auto" name="yearpicker" id="yearpicker">
                 </select>
             </div>
         </div>

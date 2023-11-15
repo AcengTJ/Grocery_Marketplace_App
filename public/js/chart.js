@@ -1,9 +1,9 @@
 $(document).ready(function () {
-  let endYear = new Date().getFullYear;
-  let startYear = 1800;
+  var startYear = 1800;
+  var endYear = new Date().getFullYear;
 
-  for (i = endYear; i > startYear; i--) {
-    $("#yearpicker").append($("<option />").val(i).html(i));
+  for (var i = endYear; i > startYear; i--) {
+    $("#yearpicker").append($("<option />").html(i).val(i));
   }
 });
 
